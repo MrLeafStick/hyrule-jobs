@@ -1,41 +1,32 @@
-<template>
-  <div class='app'>
-    <h1>Hyrule Jobs</h1>
-    <p>Hello, {{ name }} - {{age}}</p>
-    <button @click="changeName('Zelda')">Change Name</button>
-    <button @click="changeAge('34')">Change age</button>
-  </div>
-</template>
-
 <script lang="ts">
-import { defineComponent, reactive, ref, toRefs } from 'vue'
-
-
+import { defineComponent, ref } from 'vue'
+import JobList from './components/JobList.vue'
+import Job from './types/job'
 
 export default defineComponent({
   name: 'App',
-  components: {},
+  components: { JobList },
   setup() {
-    // const state = reactive({
-    //   name: 'Link',
-    //   age: 25 as string | number
-    // })
+    const jobs = ref<Job[]>([
+      {title: 'farmworker', location: 'lon lon ranch', salary: 30000, id:'1'},
+      {title: 'quarryman', location: 'death mountian', salary: 60000, id:'2'},
+      {title: 'Fisher', location: 'lake hylia', salary: 20000, id:'3'},
+      {title: 'flute player', location: 'the lost woods', salary: 30, id:'4'},
+      {title: 'prison guard', location: 'gerudo vally', salary: 130000, id:'5'}
+    ])
 
-    // return { ...toRefs(state) }
-
-    const name = ref('Link')
-    const age = ref(<number | number>(25))
-
-    return {name, age}
-
+    return { jobs }
   },
   methods: {
-    changeName(name: string) {
-      this.name = name
-    },
-    changeAge(age: number | string)  {
-      this.age = age
-    }
+
   }
 })
 </script>
+
+<template>
+  <div class='app'>
+    <JobList :jobs="jobs" />
+  </div>
+</template>
+
+
